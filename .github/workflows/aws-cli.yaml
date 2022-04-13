@@ -1,0 +1,17 @@
+name: AWS CLI
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'trigger.md'
+  workflow_dispatch:
+
+jobs:
+  Setup:
+    name: Setup Ubuntu runner
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Manual stuffs
+      run: |
+        aws help
