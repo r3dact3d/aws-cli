@@ -22,5 +22,5 @@ jobs:
     - name: Manual stuffs
       run: |
         #export VPCID=`aws ec2 describe-vpcs --filter Name=tag:Name,Values=ANSIBLE_VPC --query Vpcs[].VpcId --output text`
-        export VPCID=`aws ec2 describe-vpcs --filter Name=state:available  --query Vpcs[].VpcId --output text`
+        export VPCID=`aws ec2 describe-vpcs --filter Name=state  --query Vpcs[].VpcId --output text`
         echo $VPCID
