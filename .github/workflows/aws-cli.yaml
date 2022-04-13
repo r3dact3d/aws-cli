@@ -11,7 +11,16 @@ jobs:
   Setup:
     name: Setup Ubuntu runner
     runs-on: ubuntu-18.04
-    steps:
+    steps:        
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2
+        
     - name: Manual stuffs
       run: |
-        aws help
+        #export VPCID=`aws ec2 describe-vpcs --filter Name=tag:Name,Values=ANSIBLE_VPC --query Vpcs[].VpcId --output text`
+        export VPCID=`aws ec2 describe-vpcs --filter Name=state:available  --query Vpcs[].VpcId --output text`
+        echo $VPCID
