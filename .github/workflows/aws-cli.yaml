@@ -23,5 +23,8 @@ jobs:
       run: |
         export VPCID=`aws ec2 describe-vpcs --filter Name=tag:Name,Values=project-vpc --query Vpcs[].VpcId --output text`
         echo $VPCID
-        aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID --query Subnets[].SubnetId --output text 
-        #aws ec2 describe-subnets --filter Name=vpc-id,Values=vpc-0123456789 --query 'Subnets[?MapPublicIpOnLaunch==`false`].SubnetId'
+        export SUBNET-A=`aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID --query Subnets[AvailabilityZone=us-east-2a].SubnetId --output text`
+        export SUBNET-B=`aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID Name=AvailabilityAone,Values=us-east-2b --query Subnets[].SubnetId --output text`
+        echo $SUBNET-A
+        echo $SUBNET-B
+        
