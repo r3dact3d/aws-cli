@@ -21,6 +21,7 @@ jobs:
         
     - name: Manual stuffs
       run: |
-        export VPCID=`aws ec2 describe-vpcs --filter Name=tag:Name,Values=project-vpc --query Vpc[].VpcId --output text`
+        export VPCID=`aws ec2 describe-vpcs --filter Name=tag:Name,Values=project-vpc --query Vpcs[].VpcId --output text`
+        echo $VPCID
         aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID --query Subnets[].SubnetId --output text 
         #aws ec2 describe-subnets --filter Name=vpc-id,Values=vpc-0123456789 --query 'Subnets[?MapPublicIpOnLaunch==`false`].SubnetId'
