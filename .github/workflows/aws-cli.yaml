@@ -23,9 +23,9 @@ jobs:
       run: |
         export VPCID=`aws ec2 describe-vpcs --filter Name=tag:Name,Values=project-vpc --query Vpcs[].VpcId --output text`
         echo $VPCID
-        export SUBNET-A=`aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID Name=AvailabilityZone,Values=us-east-2a --query Subnets[].SubnetId --output text`
-        export SUBNET-B=`aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID Name=AvailabilityZone,Values=us-east-2b --query Subnets[].SubnetId --output text`
-        export SUBNET-C=`aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID Name=AvailabilityZone,Values=us-east-2c --query Subnets[].SubnetId --output text`
+        export SUBNET-A=`aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID Name=availabilityzone,Values=us-east-2a --query Subnets[].SubnetId --output text`
+        export SUBNET-B=`aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID Name=availabilityzone,Values=us-east-2b --query Subnets[].SubnetId --output text`
+        export SUBNET-C=`aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID Name=availabilityzone,Values=us-east-2c --query Subnets[].SubnetId --output text`
         echo $SUBNET-A
         echo $SUBNET-B
         echo $SUBNET-C
