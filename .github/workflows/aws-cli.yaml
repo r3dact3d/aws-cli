@@ -22,6 +22,6 @@ jobs:
     - name: Manual stuffs
       run: |
         export VPCID=`aws ec2 describe-vpcs --filter Name=state,Values=available  --query Vpcs[].VpcId --output text`
-        export VPC-DETAILS=`aws ec2 describe-vpcs --vpc-ids $VPCID`
+        export SUBNETIDS=`aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID --query Subnets[].SubnetId --output text` 
         echo $VPCID
-        echo $VPC-DETAILS
+        echo $SUBNETIDS
