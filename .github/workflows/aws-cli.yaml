@@ -22,4 +22,4 @@ jobs:
     - name: Manual stuffs
       run: |
         export VPCID=`aws ec2 describe-vpcs --filter Name=state,Values=available  --query Vpcs[].VpcId --output text`
-        aws ec2 describe-subnets 
+        aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPCID --query Subnets[*].SubnetId --output text 
