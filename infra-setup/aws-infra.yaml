@@ -33,35 +33,20 @@
       block:
       - name: Gather VPC info
         ansible.builtin.include_role:
-          name: aws_vpc_info
+          name: aws-vpc-info
       
       - name: Create VPC
         when: aws_vpc_id == -1
         ansible.builtin.include_role:
-          name: aws_vpc_create
+          name: aws-vpc-create
                  
       - name: Upload public key to AWS
-        amazon.aws.ec2_key:
-          name: "{{ key_name }}"
-          key_material: "{{ lookup('file', '~/.ssh/{{ key_name }}.pub') }}"
-          region: "{{ region }}"
+        ansible.builtin.include_role:
+          name: aws-keys-create
 
       - name: Create security group
-        register: result_sec_group
-        amazon.aws.ec2_group:
-          name: "{{ sec_group }}"
-          description: "Sec group for app {{ id }}"
-          vpc_id: "{{ vpc_id }}"
-          region: "{{ region }}"
-          rules:
-            - proto: tcp
-              ports:
-                - 22
-              cidr_ip: 0.0.0.0/0
-              rule_desc: allow all on ssh port
-          tags:
-            Name: "{{ sec_group }}"
-            env: sandbox
+        ansible.builtin.include_role:
+          name: aws-sg-create
         
       - name: Provision instance(s)
         amazon.aws.ec2_instance:
