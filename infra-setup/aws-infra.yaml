@@ -33,22 +33,18 @@
       tags: ['never', 'create_ec2']
       block:
       - name: Upload public key to AWS
-        ec2_key:
+        amazon.aws.ec2_key:
           name: "{{ key_name }}"
           key_material: "{{ lookup('file', '~/.ssh/{{ key_name }}.pub') }}"
           region: "{{ region }}"
-          access_key: "{{ aws-access-key-id }}"
-          secret_key: "{{ aws-secret-access-key }}"
 
       - name: Create security group
         register: result_sec_group
-        ec2_group:
+        amazon.aws.ec2_security_group:
           name: "{{ sec_group }}"
           description: "Sec group for app {{ id }}"
-          # vpc_id: 12345
+          #vpc_id: 12345
           region: "{{ region }}"
-          access_key: "{{ aws-access-key-id }}"
-          secret_key: "{{ aws-secret-access-key }}"
           rules:
             - proto: tcp
               ports:
@@ -57,20 +53,14 @@
               rule_desc: allow all on ssh port
         
       - name: Provision instance(s)
-        ec2:
-          access_key: "{{ aws-access-key-id }}"
-          secret_key: "{{ aws-secret-access-key }}"
+        amazon.aws.ec2_instance:
           key_name: "{{ key_name }}"
-          id: "{{ id }}"
-          group_id: "{{ result_sec_group.group_id }}"
+          name: "{{ id }}"
+          security_group: "{{ result_sec_group.group_id }}"
           image: "{{ image }}"
           instance_type: t2.micro
           region: "{{ region }}"
-          wait: true
           count: 1
-          # exact_count: 2
-          # count_tag:
-          #   Name: App
-          # instance_tags:
-          #   Name: App
+          tags:
+            Environment: Testing
 
