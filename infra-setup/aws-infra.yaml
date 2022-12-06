@@ -39,6 +39,7 @@
           cidr_block: 10.1.0.0/16
           region: "{{ region }}"
           tags:
+            Name: "{{ id }}-vpc"
             env: sandbox
             
       - name: Set VPC ID fact
@@ -51,6 +52,7 @@
           vpc_id: "{{ vpc_id }}"
           state: present
           tags:
+            Name: "{{ id }}-igw"
             env: sandbox
             
       - name: Create public route table
@@ -60,7 +62,7 @@
           region: "{{ region }}"
           gateway_id: "{{ igw.gateway_id }}"
           tags:
-            name: "{{ id }}-route-table"
+            Name: "{{ id }}-route-table"
             env: sandbox
           
       - name: Create subnet 
@@ -70,7 +72,7 @@
           vpc_id: "{{ vpc_id }}"
           cidr: 10.1.0.0/24
           tags:
-            name: "{{ id }}-subnet"
+            Name: "{{ id }}-subnet"
             env: sandbox
       
       - name: Add route table
@@ -79,7 +81,7 @@
           vpc_id: "{{ vpc_id }}"
           region: "{{ region }}"
           tags: 
-            name: public
+            Name: public
           subnets:
             - "{{ subnet.subnet.id }}"
           routes:
@@ -108,7 +110,7 @@
               cidr_ip: 0.0.0.0/0
               rule_desc: allow all on ssh port
           tags:
-            name: "{{ sec_group }}"
+            Name: "{{ sec_group }}"
             env: sandbox
         
       - name: Provision instance(s)
@@ -121,7 +123,12 @@
           vpc_subnet_id: "{{ subnet.subnet.id }}"
           region: "{{ region }}"
           count: 1
+          network:
+            assign_public_ip: yes
+            delete_on_termination: yes
+          detailed_monitoring: no
+          ebs_optimized: no
           tags:
-            name: "{{ id }}-ec2"
+            Name: "{{ id }}-ec2"
             env: sandbox
 
