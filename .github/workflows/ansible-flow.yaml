@@ -25,4 +25,4 @@ jobs:
           
       - name: Run ansible playbook
         run: |
-          
+          ansible-playbook infra-setup/aws-infra.yaml 
