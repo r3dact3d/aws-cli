@@ -81,7 +81,7 @@
           tags: 
             name: public
           subnets:
-            - "{{ subnet.subnet.id }}"'
+            - "{{ subnet.subnet.id }}"
           routes:
             - dest: 0.0.0.0/0
               gateway_id: "{{ igw.gateway_id }}"
@@ -108,6 +108,7 @@
               cidr_ip: 0.0.0.0/0
               rule_desc: allow all on ssh port
           tags:
+            name: "{{ sec_group }}"
             env: sandbox
         
       - name: Provision instance(s)
@@ -121,5 +122,6 @@
           region: "{{ region }}"
           count: 1
           tags:
+            name: "{{ id }}-ec2"
             env: sandbox
 
