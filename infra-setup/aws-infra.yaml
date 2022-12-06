@@ -15,8 +15,7 @@
     sec_group: "{{ id }}-sec"
 
   tasks:
-
-    - name: Facts
+    - name: Facts block
       tags: always
       block:
       - name: Get instances facts
@@ -40,11 +39,7 @@
         when: aws_vpc_id == -1
         ansible.builtin.include_role:
           name: aws_vpc_create
-            
-
-          
-
-            
+                 
       - name: Upload public key to AWS
         amazon.aws.ec2_key:
           name: "{{ key_name }}"
