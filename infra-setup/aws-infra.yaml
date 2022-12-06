@@ -40,7 +40,7 @@
 
       - name: Create security group
         register: result_sec_group
-        amazon.aws.ec2_security_group:
+        amazon.aws.ec2_group:
           name: "{{ sec_group }}"
           description: "Sec group for app {{ id }}"
           #vpc_id: 12345
