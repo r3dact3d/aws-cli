@@ -21,3 +21,5 @@ jobs:
       - name: Run ansible playbook
         run: |
           ansible --version
+          whoami
+          cat .ssh/
