@@ -116,7 +116,7 @@
           key_name: "{{ key_name }}"
           name: "{{ id }}"
           security_group: "{{ result_sec_group.group_id }}"
-          image: "{{ image }}"
+          image_id: "{{ image }}"
           instance_type: t2.micro
           vpc_subnet_id: "{{ subnet.subnet.id }}"
           region: "{{ region }}"
