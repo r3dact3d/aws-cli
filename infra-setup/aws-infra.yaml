@@ -21,7 +21,7 @@
       block:
       - name: Get instances facts
         register: result
-        ec2_instance_facts:
+        ec2_instance_info:
           access_key: "{{ aws-access-key-id }}"
           secret_key: "{{ aws-secret-access-key }}"
           region: "{{ region }}"
