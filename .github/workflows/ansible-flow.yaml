@@ -23,6 +23,11 @@ jobs:
         run: |
           ssh-keygen -t rsa -b 4096 -f ~/.ssh/runner
           
+      - name: Prep playbook
+        run: |
+          perl -pi -e 's/AWS_ACCESS_KEY_ID/${{ secrets.AWS_ACCESS_KEY_ID }}/' infra-setup/aws-infra.yaml
+          perl -pi -e 's/AWS_SECRET_ACCESS_KEY_ID/${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}/' infra-setup/aws-infra.yaml
+          
       - name: Run ansible playbook
         run: |
           ansible-playbook infra-setup/aws-infra.yaml 
