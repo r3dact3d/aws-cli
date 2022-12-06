@@ -1,0 +1,16 @@
+- name: Create security group
+  register: result_sec_group
+  amazon.aws.ec2_group:
+    name: "{{ sec_group }}"
+    description: "Sec group for app {{ id }}"
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ region }}"
+    rules:
+      - proto: tcp
+        ports:
+          - 22
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on ssh port
+    tags:
+      Name: "{{ sec_group }}"
+      env: sandbox
