@@ -6,12 +6,12 @@
   gather_facts: False
 
   vars:
-    key_name: my_aws
+    key_name: runner
     region: us-east-2
     image: ami-0f93b5fd8f220e428 # https://cloud-images.ubuntu.com/locator/ec2/
-    id: "web-app"
+    id: "control-node"
     sec_group: "{{ id }}-sec"
-    aws-access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   tasks:
@@ -22,7 +22,7 @@
       - name: Get instances facts
         register: result
         ec2_instance_facts:
-          aws_access_key: "{{ aws-access-key }}"
+          aws_access_key: "{{ aws-access-key-id }}"
           aws_secret_key: "{{ aws-secret-access-key }}"
           region: "{{ region }}"
 
@@ -39,8 +39,8 @@
           name: "{{ key_name }}"
           key_material: "{{ lookup('file', '/Users/julianosilva/.ssh/{{ key_name }}.pub') }}"
           region: "{{ region }}"
-          aws_access_key: "{{ec2_access_key}}"
-          aws_secret_key: "{{ec2_secret_key}}"
+          aws_access_key: "{{ aws-access-key-id }}"
+          aws_secret_key: "{{ aws-secret-access-key }}"
 
       - name: Create security group
         register: result_sec_group
@@ -49,8 +49,8 @@
           description: "Sec group for app {{ id }}"
           # vpc_id: 12345
           region: "{{ region }}"
-          aws_access_key: "{{ec2_access_key}}"
-          aws_secret_key: "{{ec2_secret_key}}"
+          aws_access_key: "{{ aws-access-key-id }}"
+          aws_secret_key: "{{ aws-secret-access-key }}"
           rules:
             - proto: tcp
               ports:
@@ -60,8 +60,8 @@
         
       - name: Provision instance(s)
         ec2:
-          aws_access_key: "{{ec2_access_key}}"
-          aws_secret_key: "{{ec2_secret_key}}"
+          aws_access_key: "{{ aws-access-key-id }}"
+          aws_secret_key: "{{ aws-secret-access-key }}"
           key_name: "{{ key_name }}"
           id: "{{ id }}"
           group_id: "{{ result_sec_group.group_id }}"
