@@ -22,5 +22,5 @@ jobs:
       - name: Run ansible playbook
         run: |
           pwd
-          tree .*
-           
+          ls /home/runner/.ssh
+          ls -al
