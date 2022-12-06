@@ -5,7 +5,7 @@
   connection: local
   gather_facts: False
   collections:
-    - community.aws
+    - amazon.aws
 
   vars:
     key_name: runner
