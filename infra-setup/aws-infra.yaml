@@ -13,8 +13,6 @@
     image: ami-0f93b5fd8f220e428 # https://cloud-images.ubuntu.com/locator/ec2/
     id: "control-node"
     sec_group: "{{ id }}-sec"
-    aws-access-key-id: AWS_ACCESS_KEY_ID
-    aws-secret-access-key: AWS_SECRET_ACCESS_KEY
 
   tasks:
 
