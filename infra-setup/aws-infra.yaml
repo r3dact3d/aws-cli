@@ -32,6 +32,10 @@
     - name: Provisioning EC2 instances
       tags: ['never', 'create_ec2']
       block:
+      - name: Gather VPC info
+        ansible.builtin.include_role:
+          name: aws_vpc_info
+      
       - name: Create VPC
         register: vpc
         amazon.aws.ec2_vpc_net:
