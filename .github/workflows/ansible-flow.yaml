@@ -33,4 +33,4 @@ jobs:
       - name: Run ansible playbook
         run: |
           #ansible-playbook infra-setup/aws-infra.yaml --extra-vars "aws-access-key-id=${{ secrets.AWS_ACCESS_KEY_ID }} aws-secret-access-key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-          ansible-playbook infra-setup/aws-infra.yaml --check
+          ansible-playbook infra-setup/aws-infra.yaml -e "ansible_python_interpreter=/usr/local/bin/python3"
