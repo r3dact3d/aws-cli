@@ -21,6 +21,6 @@ jobs:
         
     - name: Manual stuffs
       run: |
-        aws ec2 describe-instances --filter Name=tag:Name,Values=default --output text
+        aws ec2 describe-instances --output text
         
         
