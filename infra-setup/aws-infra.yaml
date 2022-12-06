@@ -1,7 +1,7 @@
-# AWS playbook
 ---
 
-- hosts: localhost
+- name: AWS playbook
+  hosts: localhost
   connection: local
   gather_facts: False
 
@@ -11,30 +11,29 @@
     image: ami-0f93b5fd8f220e428 # https://cloud-images.ubuntu.com/locator/ec2/
     id: "web-app"
     sec_group: "{{ id }}-sec"
+    aws-access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   tasks:
 
     - name: Facts
+      tags: always
       block:
-
       - name: Get instances facts
-        ec2_instance_facts:
-          aws_access_key: "{{ec2_access_key}}"
-          aws_secret_key: "{{ec2_secret_key}}"
-          region: "{{ region }}"
         register: result
+        ec2_instance_facts:
+          aws_access_key: "{{ aws-access-key }}"
+          aws_secret_key: "{{ aws-secret-access-key }}"
+          region: "{{ region }}"
 
       - name: Instances ID
+        loop: "{{ result.instances }}"
         debug:
           msg: "ID: {{ item.instance_id }} - State: {{ item.state.name }} - Public DNS: {{ item.public_dns_name }}"
-        loop: "{{ result.instances }}"
-
-      tags: always
-
 
     - name: Provisioning EC2 instances
       block:
-
+      tags: ['never', 'create_ec2']
       - name: Upload public key to AWS
         ec2_key:
           name: "{{ key_name }}"
@@ -44,6 +43,7 @@
           aws_secret_key: "{{ec2_secret_key}}"
 
       - name: Create security group
+        register: result_sec_group
         ec2_group:
           name: "{{ sec_group }}"
           description: "Sec group for app {{ id }}"
@@ -57,8 +57,7 @@
                 - 22
               cidr_ip: 0.0.0.0/0
               rule_desc: allow all on ssh port
-        register: result_sec_group
-
+        
       - name: Provision instance(s)
         ec2:
           aws_access_key: "{{ec2_access_key}}"
@@ -77,4 +76,3 @@
           # instance_tags:
           #   Name: App
 
-      tags: ['never', 'create_ec2']
