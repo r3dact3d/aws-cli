@@ -37,62 +37,13 @@
           name: aws_vpc_info
       
       - name: Create VPC
-        register: vpc
-        amazon.aws.ec2_vpc_net:
-          name: "{{ id }}-vpc"
-          cidr_block: 10.1.0.0/16
-          region: "{{ region }}"
-          tags:
-            Name: "{{ id }}-vpc"
-            env: sandbox
+        when: aws_vpc_id == -1
+        ansible.builtin.include_role:
+          name: aws_vpc_create
             
-      - name: Set VPC ID fact
-        ansible.builtin.set_fact:
-          vpc_id: "{{ vpc.vpc.id }}"
+
           
-      - name: Create Internet gateway
-        register: igw
-        amazon.aws.ec2_vpc_igw:
-          vpc_id: "{{ vpc_id }}"
-          state: present
-          tags:
-            Name: "{{ id }}-igw"
-            env: sandbox
-            
-      - name: Create public route table
-        register: gateway_route_table
-        amazon.aws.ec2_vpc_route_table:
-          vpc_id: "{{ vpc_id }}"
-          region: "{{ region }}"
-          gateway_id: "{{ igw.gateway_id }}"
-          tags:
-            Name: "{{ id }}-route-table"
-            env: sandbox
-          
-      - name: Create subnet 
-        register: subnet
-        amazon.aws.ec2_vpc_subnet:
-          state: present
-          vpc_id: "{{ vpc_id }}"
-          cidr: 10.1.0.0/24
-          tags:
-            Name: "{{ id }}-subnet"
-            env: sandbox
-      
-      - name: Add route table
-        register: public_route_table
-        amazon.aws.ec2_vpc_route_table:
-          vpc_id: "{{ vpc_id }}"
-          region: "{{ region }}"
-          tags: 
-            Name: public
-          subnets:
-            - "{{ subnet.subnet.id }}"
-          routes:
-            - dest: 0.0.0.0/0
-              gateway_id: "{{ igw.gateway_id }}"
-            - dest: ::/0
-              gateway_id: "{{ igw.gateway_id }}"
+
             
       - name: Upload public key to AWS
         amazon.aws.ec2_key:
