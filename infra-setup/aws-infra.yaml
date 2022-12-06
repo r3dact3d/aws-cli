@@ -36,7 +36,7 @@
         register: vpc
         amazon.aws.ec2_vpc_net:
           name: "{{ id }}-vpc"
-          cicr_block: 10.1.0.0/16
+          cidr_block: 10.1.0.0/16
           region: "{{ region }}"
           tags:
             env: sandbox
