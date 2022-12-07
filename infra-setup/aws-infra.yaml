@@ -35,7 +35,7 @@
           name: aws-vpc-info
       
       - name: Create VPC
-        when: aws_vpc_id == -1
+        when: aws_vpc_id is undefined
         ansible.builtin.include_role:
           name: aws-vpc-create
 
