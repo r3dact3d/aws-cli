@@ -6,6 +6,7 @@
     region: "{{ region }}"
 
 - name: Collect VPC ID
+  ignore_errors: yes
   ansible.builtin.set_fact:
     aws_vpc_id: "{{ vpc.vpcs[0].id }}"
 
