@@ -28,14 +28,37 @@
       Name: "{{ id }}-route-table"
       env: sandbox
 
-- name: Create subnet 
-  register: subnet
+- name: Create subnet 1
+  register: subnet1
   amazon.aws.ec2_vpc_subnet:
     state: present
-    vpc_id: "{{ vpc_id }}"
-    cidr: 10.1.0.0/24
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: 10.1.1.0/24
+    az: "{{ region }}-2a
     tags:
-      Name: "{{ id }}-subnet"
+      Name: "{{ id }}-subnet-a"
+      env: sandbox
+      
+- name: Create subnet 2
+  register: subnet2
+  amazon.aws.ec2_vpc_subnet:
+    state: present
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: 10.1.2.0/24
+    az: "{{ region }}-2b
+    tags:
+      Name: "{{ id }}-subnet-b"
+      env: sandbox
+      
+- name: Create subnet 3
+  register: subnet3
+  amazon.aws.ec2_vpc_subnet:
+    state: present
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: 10.1.3.0/24
+    az: "{{ region }}-2c
+    tags:
+      Name: "{{ id }}-subnet-c"
       env: sandbox
 
 - name: Add route table
@@ -46,7 +69,9 @@
     tags: 
       Name: public
     subnets:
-      - "{{ subnet.subnet.id }}"
+      - "{{ subnet1.subnet.id }}"
+      - "{{ subnet2.subnet.id }}"
+      - "{{ subnet3.subnet.id }}"
     routes:
       - dest: 0.0.0.0/0
         gateway_id: "{{ igw.gateway_id }}"
