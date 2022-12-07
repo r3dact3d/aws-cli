@@ -54,7 +54,7 @@
           security_group: "{{ result_sec_group.group_id }}"
           image_id: "{{ image }}"
           instance_type: t2.micro
-          vpc_subnet_id: "{{ vpc_subnet_list | first }}"
+          vpc_subnet_id: "{{ vpc_subnet.subnets[0].subnet_id }}"
           region: "{{ region }}"
           count: 1
           network:
