@@ -6,7 +6,7 @@
     region: "{{ region }}"
 
 - name: Collect VPC ID
-  ignore_errors: yes
+  when: vpc.vpcs[0] is defined
   ansible.builtin.set_fact:
     aws_vpc_id: "{{ vpc.vpcs[0].id }}"
 
@@ -14,8 +14,13 @@
   register: vpc_subnet
   amazon.aws.ec2_vpc_subnet_info:
     region: "{{ region }}"
+    
+- name: setfact
+  ansible.builtin.set_fact:
+    vpc_subnet_list: []
 
 - name: Collect VPC Subnets
+  when: vpc_subnet.subnet[0] is defined
   loop: "{{ vpc_subnet.subnets }}"
   ansible.builtin.set_fact:  
     vpc_subnet_list: "{{ vpc_subnet_list }} + [ '{{ item.subnet_id }}' ]"
