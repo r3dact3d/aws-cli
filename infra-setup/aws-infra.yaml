@@ -8,11 +8,10 @@
     - amazon.aws
 
   vars:
-    key_name: runner
+    key_name: ansible-runner
     region: us-east-2
     image: ami-078cbc4c2d057c244 # RHEL9 image for us-east-2 x86_64
     id: "control-node"
-    sec_group: "{{ id }}-sec"
 
   tasks:
     - name: Facts block
@@ -39,14 +38,18 @@
         when: aws_vpc_id == -1
         ansible.builtin.include_role:
           name: aws-vpc-create
-                 
-      - name: Upload public key to AWS
-        ansible.builtin.include_role:
-          name: aws-keys-create
 
       - name: Create security group
         ansible.builtin.include_role:
           name: aws-sg-create
+          
+      - name: Upload public key to AWS
+        ansible.builtin.include_role:
+          name: aws-keys-create
+          
+      - name: Provision ec2 instance(s)
+        ansible.builtin.include_role:
+          name: aws-ec2-create
         
       - name: Provision instance(s)
         amazon.aws.ec2_instance:
@@ -66,4 +69,3 @@
           tags:
             Name: "{{ id }}-ec2"
             env: sandbox
-
