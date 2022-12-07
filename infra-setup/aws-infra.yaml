@@ -46,10 +46,6 @@
       - name: Upload public key to AWS
         ansible.builtin.include_role:
           name: aws-keys-create
-          
-      - name: Provision ec2 instance(s)
-        ansible.builtin.include_role:
-          name: aws-ec2-create
         
       - name: Provision instance(s)
         amazon.aws.ec2_instance:
