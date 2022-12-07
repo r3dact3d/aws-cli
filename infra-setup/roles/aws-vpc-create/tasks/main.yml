@@ -65,6 +65,10 @@
   register: vpc_subnet
   amazon.aws.ec2_vpc_subnet_info:
     region: "{{ region }}"
+    
+- name: Define subnet list
+  ansible.builtin.set_fact:
+    vpc_subnet_list: []
 
 - name: Collect VPC subnets
   loop: "{{ vpc_subnet.subnets }}"
