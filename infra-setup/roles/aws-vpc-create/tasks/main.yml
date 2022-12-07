@@ -34,7 +34,7 @@
     state: present
     vpc_id: "{{ vpc.vpc.id }}"
     cidr: 10.1.1.0/24
-    az: "{{ region }}-2a"
+    az: "{{ region }}a"
     tags:
       Name: "{{ id }}-subnet-a"
       env: sandbox
@@ -45,7 +45,7 @@
     state: present
     vpc_id: "{{ vpc.vpc.id }}"
     cidr: 10.1.2.0/24
-    az: "{{ region }}-2b"
+    az: "{{ region }}b"
     tags:
       Name: "{{ id }}-subnet-b"
       env: sandbox
@@ -56,7 +56,7 @@
     state: present
     vpc_id: "{{ vpc.vpc.id }}"
     cidr: 10.1.3.0/24
-    az: "{{ region }}-2c"
+    az: "{{ region }}c"
     tags:
       Name: "{{ id }}-subnet-c"
       env: sandbox
