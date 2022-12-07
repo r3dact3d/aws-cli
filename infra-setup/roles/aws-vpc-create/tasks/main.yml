@@ -61,20 +61,6 @@
       Name: "{{ id }}-subnet-c"
       env: sandbox
       
-- name: Fetch VPC subnets
-  register: vpc_subnet
-  amazon.aws.ec2_vpc_subnet_info:
-    region: "{{ region }}"
-    
-- name: Define subnet list
-  ansible.builtin.set_fact:
-    vpc_subnet_list: []
-
-- name: Collect VPC subnets
-  loop: "{{ vpc_subnet.subnets }}"
-  ansible.builtin.set_fact:  
-    vpc_subnet_list: "{{ vpc_subnet_list + ['item.subnet_id'] }}"
-  
 - name: Add route table
   register: public_route_table
   amazon.aws.ec2_vpc_route_table:
