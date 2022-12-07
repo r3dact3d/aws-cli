@@ -53,7 +53,7 @@
           name: "{{ id }}"
           security_group: "{{ result_sec_group.group_id }}"
           image_id: "{{ image }}"
-          instance_type: t2.micro
+          instance_type: m4.large
           vpc_subnet_id: "{{ vpc_subnet.subnets[0].subnet_id }}"
           region: "{{ region }}"
           count: 1
