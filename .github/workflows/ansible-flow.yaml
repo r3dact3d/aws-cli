@@ -28,7 +28,7 @@ jobs:
           
       - name: Create SSH key
         run: |
-          ssh-keygen -t rsa -b 4096 -f ~/.ssh/runner
+          ssh-keygen -t rsa -b 4096 -f ~/.ssh/ansibe-runner
           
       - name: Run ansible playbook
         run: |
