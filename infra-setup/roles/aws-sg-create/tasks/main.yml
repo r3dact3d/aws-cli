@@ -1,4 +1,5 @@
 - name: Create security group
+  when: vpc.vpc.id is defined
   register: result_sec_group
   amazon.aws.ec2_group:
     name: "{{ id }}-sg"
