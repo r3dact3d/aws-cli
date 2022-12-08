@@ -3,7 +3,7 @@
   amazon.aws.ec2_group:
     name: "{{ id }}-sg"
     description: "Sec group for app {{ id }}"
-    vpc_id: "{{ vpc.vpc.id }}"
+    vpc_id: "{{ aws_vpc_id }}"
     region: "{{ region }}"
     rules:
       - proto: tcp
