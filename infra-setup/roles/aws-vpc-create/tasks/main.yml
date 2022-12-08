@@ -77,3 +77,8 @@
         gateway_id: "{{ igw.gateway_id }}"
       - dest: ::/0
         gateway_id: "{{ igw.gateway_id }}"
+
+- name: Fetch VPC Subnets
+  register: vpc_subnet
+  amazon.aws.ec2_vpc_subnet_info:
+    region: "{{ region }}"
