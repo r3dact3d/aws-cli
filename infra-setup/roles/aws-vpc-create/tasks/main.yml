@@ -8,11 +8,15 @@
     tags:
       Name: "{{ id }}-vpc"
       env: sandbox
+      
+- name: Set vpc ID
+  ansible.builtin.set_fact:
+    aws_vpc_id: "{{ vpc.vpc.id }}"
 
 - name: Create Internet gateway
   register: igw
   amazon.aws.ec2_vpc_igw:
-    vpc_id: "{{ vpc.vpc.id }}"
+    vpc_id: "{{ aws_vpc_id }}"
     state: present
     tags:
       Name: "{{ id }}-igw"
@@ -21,7 +25,7 @@
 - name: Create public route table
   register: gateway_route_table
   amazon.aws.ec2_vpc_route_table:
-    vpc_id: "{{ vpc.vpc.id }}"
+    vpc_id: "{{ aws_vpc_id }}"
     region: "{{ region }}"
     gateway_id: "{{ igw.gateway_id }}"
     tags:
@@ -32,7 +36,7 @@
   register: subnet1
   amazon.aws.ec2_vpc_subnet:
     state: present
-    vpc_id: "{{ vpc.vpc.id }}"
+    vpc_id: "{{ aws_vpc_id }}"
     cidr: 10.1.1.0/24
     az: "{{ region }}a"
     tags:
@@ -43,7 +47,7 @@
   register: subnet2
   amazon.aws.ec2_vpc_subnet:
     state: present
-    vpc_id: "{{ vpc.vpc.id }}"
+    vpc_id: "{{ aws_vpc_id }}"
     cidr: 10.1.2.0/24
     az: "{{ region }}b"
     tags:
@@ -54,7 +58,7 @@
   register: subnet3
   amazon.aws.ec2_vpc_subnet:
     state: present
-    vpc_id: "{{ vpc.vpc.id }}"
+    vpc_id: "{{ aws_vpc_id }}"
     cidr: 10.1.3.0/24
     az: "{{ region }}c"
     tags:
@@ -64,7 +68,7 @@
 - name: Add route table
   register: public_route_table
   amazon.aws.ec2_vpc_route_table:
-    vpc_id: "{{ vpc.vpc.id }}"
+    vpc_id: "{{ aws_vpc_id }}"
     region: "{{ region }}"
     tags: 
       Name: public
