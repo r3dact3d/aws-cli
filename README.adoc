@@ -1,0 +1,6 @@
+.Prerequisites
+* Update Secrets
+** AWS_ACCESS_KEY_ID
+** AWS_SECRET_ACCESS_KEY
+* Create SSH Key
+** Login to AWS console to create and save key
