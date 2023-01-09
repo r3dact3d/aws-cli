@@ -2,5 +2,5 @@
 * Update Secrets
 ** AWS_ACCESS_KEY_ID
 ** AWS_SECRET_ACCESS_KEY
-* Create SSH Key
-** Login to AWS console to create and save key
+* Create SSH Key Pair
+** Login to AWS console to create and save Key Pair
