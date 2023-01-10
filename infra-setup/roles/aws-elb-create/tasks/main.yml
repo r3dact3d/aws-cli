@@ -2,12 +2,12 @@
 # tasks file for aws-create-elb
 - name: Create Amazon ELB
   amazon.aws.ec2_elb_lb:
-    profile: "{{ aws_boto_profile }}"
-    name: "{{ aws_elb_app_lb }}"
+    name: "ansible-elb-{{ dev }}"
     region: "{{ region }}"
     zones:
-      - "{{ ap_zone1 }}"
-      - "{{ ap_zone2 }}"
+      - "{{ region }}a"
+      - "{{ region }}b"
+      - "{{ region }}c"
     listeners:
       - protocol: http
         load_balancer_port: 80
