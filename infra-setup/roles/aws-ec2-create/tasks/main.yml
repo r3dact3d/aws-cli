@@ -10,7 +10,7 @@
     region: "{{ region }}"
     count: 1
     network:
-      assign_public_ip: "{{ public_ip_toggle | default(no, true) }}"
+      assign_public_ip: "{{ public_ip_toggle | default(omit) }}"
       delete_on_termination: yes
     detailed_monitoring: no
     ebs_optimized: no
