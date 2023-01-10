@@ -10,5 +10,6 @@ NOTE: The playbook default is looking for Key Pair named ansible-runner.
 
 
 .Setup Infra
+* Run workflow
 
 image::https://github.com/r3dact3d/aws-cli/actions/workflows/ansible-flow.yaml/badge.svg[link="https://github.com/r3dact3d/aws-cli/actions/workflows/ansible-flow.yaml"]
