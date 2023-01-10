@@ -40,7 +40,7 @@
         ansible.builtin.include_role:
           name: aws-vpc-create
 
-      - name: Create security group
+      - name: Create bastion security group
         ansible.builtin.include_role:
           name: aws-sg-create
           
@@ -51,3 +51,12 @@
       - name: Create bastion EC2 instance
         ansible.builtin.include_role:
           name: aws-ec2-create
+
+      - name: Create control nodes
+        loop:                     
+          - control-node-1.yml    
+          - control-node-2.yml    
+          - control-node-3.yml
+        ansible.builtin.include_role:
+          name: aws-ec2-create
+          vars_from: "{{ item }}"

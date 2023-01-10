@@ -1,0 +1,5 @@
+---
+keypair: "{{ aws_keypair }}" 
+instance_name: "{{ env }}-control-node-3"
+security_group_id: "{{ result_sec_group.group_id }}"
+vpc_subnet_id: "{{ vpc_subnet.subnets[2].subnet_id }}"
