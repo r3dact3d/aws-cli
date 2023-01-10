@@ -1,0 +1,5 @@
+---
+aws_keypair: ansible-runner 
+instance_name: "{{ env }}-{{ id }}"
+security_group_id: "{{ result_sec_group.group_id }}"
+vpc_subnet_id: "{{ vpc_subnet.subnets[0].subnet_id }}"

@@ -8,10 +8,10 @@
     - amazon.aws
 
   vars:
-    key_name: ansible-runner
+    aws_keypair: ansible-runner
     region: us-east-2
-    image: ami-03892f6b6a7014862 # RHEL9 image for us-east-2 x86_64
-    id: "control-node"
+    rhel9_image: ami-03892f6b6a7014862 # RHEL9 image for us-east-2 x86_64
+    id: control-node
     env: dev
 
   tasks:
@@ -47,22 +47,7 @@
 #      - name: Upload public key to AWS
 #        ansible.builtin.include_role:
 #          name: aws-keys-create
-        
-      - name: Provision instance(s)
-        amazon.aws.ec2_instance:
-          key_name: "{{ key_name }}"
-          name: "{{ id }}"
-          security_group: "{{ result_sec_group.group_id }}"
-          image_id: "{{ image }}"
-          instance_type: m4.large
-          vpc_subnet_id: "{{ vpc_subnet.subnets[0].subnet_id }}"
-          region: "{{ region }}"
-          count: 1
-          network:
-            assign_public_ip: yes
-            delete_on_termination: yes
-          detailed_monitoring: no
-          ebs_optimized: no
-          tags:
-            Name: "{{ id }}-ec2-{{ env }}"
-            env: "{{ env }}"
+       
+       - name: Create bastion EC2 instance
+         ansible.builtin.include_role:
+           name: aws-ec2-create
