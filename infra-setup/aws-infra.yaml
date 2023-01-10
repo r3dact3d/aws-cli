@@ -48,6 +48,6 @@
 #        ansible.builtin.include_role:
 #          name: aws-keys-create
        
-       - name: Create bastion EC2 instance
-         ansible.builtin.include_role:
-           name: aws-ec2-create
+      - name: Create bastion EC2 instance
+        ansible.builtin.include_role:
+          name: aws-ec2-create
