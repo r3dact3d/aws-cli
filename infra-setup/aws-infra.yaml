@@ -64,5 +64,5 @@
           detailed_monitoring: no
           ebs_optimized: no
           tags:
-            Name: "{{ id }}-ec2"
-            env: sandbox
+            Name: "{{ id }}-ec2-{{ env }}"
+            env: "{{ env }}"
