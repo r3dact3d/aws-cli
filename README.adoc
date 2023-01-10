@@ -7,3 +7,8 @@
 
 NOTE: The playbook default is looking for Key Pair named ansible-runner.  
       If you use a Key Pair named something different, update the variable called link:https://github.com/r3dact3d/aws-cli/blob/main/infra-setup/aws-infra.yaml#L11["key_name"]
+
+
+.Setup Infra
+
+image::https://github.com/r3dact3d/aws-cli/actions/workflows/ansible-flow.yaml/badge.svg[link="https://github.com/r3dact3d/aws-cli/actions/workflows/ansible-flow.yaml"]
