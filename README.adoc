@@ -6,7 +6,7 @@
 ** Login to AWS console to create and save Key Pair
 
 NOTE: The playbook default is looking for Key Pair named ansible-runner.  
-      If you use a Key Pair named something different, update the variable called link:https://github.com/r3dact3d/aws-cli/blob/main/infra-setup/aws-infra.yaml#L11["key_name"]
+      If you use a Key Pair named something different, update the variable called link:https://github.com/r3dact3d/aws-cli/blob/main/infra-setup/aws-infra.yaml#L11["aws_keypair"]
 
 
 .Setup Infra
