@@ -1,7 +1,7 @@
 ---
 - name: Provision instance(s)
   amazon.aws.ec2_instance:
-    key_name: "{{ aws_keypair }}"
+    key_name: "{{ keypair }}"
     name: "{{ instance_name | default('default-node') }}"
     security_group: "{{ security_group_id }}"
     image_id: "{{ image }}"
