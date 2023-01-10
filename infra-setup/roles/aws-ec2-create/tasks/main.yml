@@ -4,7 +4,7 @@
     key_name: "{{ keypair }}"
     name: "{{ instance_name | default('default-node') }}"
     security_group: "{{ security_group_id }}"
-    image_id: "{{ image }}"
+    image_id: "{{ rhel9_image }}"
     instance_type: "{{ ec2_type | default('m4.large') }}"
     vpc_subnet_id: "{{ vpc_subnet_id }}"
     region: "{{ region }}"
