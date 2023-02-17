@@ -1,5 +1,12 @@
-- name: Upload public key to AWS
+---
+- name: Create ssh keypair to AWS
+  register: ssh_key
   amazon.aws.ec2_key:
     name: "{{ keypair }}"
-    key_material: "{{ lookup('file', '~/.ssh/{{ keypair }}.pub') }}"
     region: "{{ region }}"
+
+- name: Copy ssh private key
+  ansible.builtin.copy:
+    content: "{{ ssh_key.private_key }}"
+    dest: /tmp/ansible-runner.pem
+    mode: '0400'
