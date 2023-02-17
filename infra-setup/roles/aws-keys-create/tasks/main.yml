@@ -2,7 +2,7 @@
 - name: Create ssh keypair to AWS
   register: ssh_key
   amazon.aws.ec2_key:
-    name: "{{ keypair }}"
+    name: "{{ aws_keypair }}"
     region: "{{ region }}"
 
 - name: Set private key fact
