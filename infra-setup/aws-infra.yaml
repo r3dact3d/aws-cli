@@ -44,7 +44,7 @@
         ansible.builtin.include_role:
           name: aws-sg-create
           
-      - name: Upload public key to AWS
+      - name: Create public key for AWS
         ansible.builtin.include_role:
           name: aws-keys-create
        
