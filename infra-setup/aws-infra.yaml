@@ -44,9 +44,9 @@
         ansible.builtin.include_role:
           name: aws-sg-create
           
-#      - name: Upload public key to AWS
-#        ansible.builtin.include_role:
-#          name: aws-keys-create
+      - name: Upload public key to AWS
+        ansible.builtin.include_role:
+          name: aws-keys-create
        
       - name: Create bastion EC2 instance
         ansible.builtin.include_role:
