@@ -51,6 +51,7 @@
       - name: Create bastion EC2 instance
         ansible.builtin.include_role:
           name: aws-ec2-create
+          vars_from: bastion.yml
 
       - name: Create control nodes
         loop:                     
