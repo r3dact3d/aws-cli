@@ -5,8 +5,12 @@
     name: "{{ keypair }}"
     region: "{{ region }}"
 
+- name: Set private key fact
+  ansible.builtin.set_fact:
+    priv_key: "{{ ssh_key.key.private_key }}"
+  
 - name: Copy ssh private key
   ansible.builtin.copy:
-    content: "{{ ssh_key.private_key }}"
+    content: "{{ priv_key }}"
     dest: /tmp/ansible-runner.pem
     mode: '0400'
