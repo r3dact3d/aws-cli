@@ -26,11 +26,6 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Create SSH key
-        run: |
-          ssh-keygen -t rsa -b 4096 -f ~/.ssh/ansible-runner.pem
-          chmod 0400 ~/.ssh/ansible-runner.pem
-
       - name: Run ansible playbook
         run: |
           ansible-playbook infra-setup/aws-infra.yaml -e "ansible_python_interpreter=`which python3`" 
