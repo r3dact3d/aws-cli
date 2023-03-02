@@ -1,5 +1,5 @@
 .Prerequisites
-* Update Secrets
+* Update https://github.com/r3dact3d/aws-cli/settings/secrets/actions[GitHub Secrets]
 ** AWS_ACCESS_KEY_ID
 ** AWS_SECRET_ACCESS_KEY
 * Create SSH Key Pair
