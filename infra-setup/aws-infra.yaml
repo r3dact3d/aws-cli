@@ -75,7 +75,7 @@
         register: bastion_status
         retries: 3
         delay: 5
-        until: "{{ bastion_status.instances[0].state.name }}" == "running"
+        until: "{{ bastion_status.instances[0].state.name }} == running"
         amazon.aws.ec2_instance_info:
           region: "{{ region }}"
           instance_ids: "{{ bastion.instances[0].instance_id }}"
