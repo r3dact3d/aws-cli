@@ -72,6 +72,7 @@
           vars_from: "{{ item }}"
 
       - name: Check on status of bastion
+        when: bastion.instances[0] is defined
         register: bastion_status
         retries: 3
         delay: 5
