@@ -8,7 +8,7 @@
     - amazon.aws
     
   vars_files:
-    - life-cycle.yml
+    - ../life-cycle.yml
     
   tasks:
     - name: Facts block
