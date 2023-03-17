@@ -81,7 +81,7 @@
         loop: "{{ bastion_status.instances }}"
         retries: 3
         delay: 5
-        until: {{ item.state.name }} == "running"
+        until: "{{ item.state.name }}" == "running"
         debug:
           msg: "ID: {{ item.instance_id }} - State: {{ item.state.name }} - Public DNS: {{ item.public_dns_name }}"
 
