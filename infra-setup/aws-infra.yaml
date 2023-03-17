@@ -49,6 +49,7 @@
           name: aws-keys-create
        
       - name: Create bastion EC2 instance
+        register: bastion
         ansible.builtin.include_role:
           name: aws-ec2-create
           vars_from: bastion.yml
@@ -69,3 +70,19 @@
         ansible.builtin.include_role:
           name: aws-ec2-create
           vars_from: "{{ item }}"
+
+      - name: Check on status of bastion
+        register: bastion_status
+        amazon.aws.ec2_instance_info:
+          region: "{{ region }}"
+          instance_ids: "{{ bastion.instances[0].instance_id }}"
+          
+      - name: Bastion status
+        loop: "{{ bastion_status.instances }}"
+        retries: 3
+        delay: 5
+        until: {{ item.state.name }} == "running"
+        debug:
+          msg: "ID: {{ item.instance_id }} - State: {{ item.state.name }} - Public DNS: {{ item.public_dns_name }}"
+
+          
