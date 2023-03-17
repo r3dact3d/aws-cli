@@ -6,13 +6,15 @@
   gather_facts: False
   collections:
     - amazon.aws
+    
+  vars_files:
+    - life-cycle.yml
 
   vars:
     aws_keypair: ansible-runner
     region: us-east-2
     rhel9_image: ami-03892f6b6a7014862 # RHEL9 image for us-east-2 x86_64
     id: control-node
-    env: dev
 
   tasks:
     - name: Facts block
