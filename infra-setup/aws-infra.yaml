@@ -73,16 +73,15 @@
 
       - name: Check on status of bastion
         register: bastion_status
+        retries: 3
+        delay: 5
+        until: "{{ bastion_status.instances[0].state.name }}" == "running"
         amazon.aws.ec2_instance_info:
           region: "{{ region }}"
           instance_ids: "{{ bastion.instances[0].instance_id }}"
           
       - name: Bastion status
-        loop: "{{ bastion_status.instances }}"
-        retries: 3
-        delay: 5
-        until: "{{ item.state.name }}" == "running"
         debug:
-          msg: "ID: {{ item.instance_id }} - State: {{ item.state.name }} - Public DNS: {{ item.public_dns_name }}"
+          msg: "ID: {{ bastion_status }}"
 
           
