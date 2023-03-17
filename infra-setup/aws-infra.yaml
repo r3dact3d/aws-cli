@@ -44,9 +44,9 @@
         ansible.builtin.include_role:
           name: aws-sg-create
           
-      - name: Create public key for AWS
-        ansible.builtin.include_role:
-          name: aws-keys-create
+      #- name: Create public key for AWS
+      #  ansible.builtin.include_role:
+      #    name: aws-keys-create
        
       - name: Create bastion EC2 instance
         register: bastion
@@ -72,14 +72,14 @@
           vars_from: "{{ item }}"
 
       - name: Check on status of bastion
-        when: bastion.instances[0] is defined
         register: bastion_status
         retries: 3
         delay: 5
         until: "{{ bastion_status.instances[0].state.name }} == running"
         amazon.aws.ec2_instance_info:
           region: "{{ region }}"
-          instance_ids: "{{ bastion.instances[0].instance_id }}"
+          filters:
+            "tag:Name": "{{ env }}-bastion"
           
       - name: Bastion status
         debug:
