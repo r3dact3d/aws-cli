@@ -61,3 +61,11 @@
         ansible.builtin.include_role:
           name: aws-ec2-create
           vars_from: "{{ item }}"
+          
+      - name: Create execute nodes
+        loop:                     
+          - execute-node1.yml    
+          - execute-node2.yml    
+        ansible.builtin.include_role:
+          name: aws-ec2-create
+          vars_from: "{{ item }}"
