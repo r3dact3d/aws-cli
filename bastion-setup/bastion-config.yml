@@ -1,1 +1,23 @@
 ---
+
+- name: Bastion config playbook
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  collections:
+    - amazon.aws
+    
+  vars_files:
+    - life-cycle.yml
+    
+  tasks:
+    - name: Facts block
+      block:
+      - name: Check on status of bastion
+        register: bastion_status
+        retries: 3
+        delay: 5
+        until: bastion_status.instances[0].state.name == "running"
+        amazon.aws.ec2_instance_info:
+          filters:
+            "tag:Name": "{{ env }}-bastion"
