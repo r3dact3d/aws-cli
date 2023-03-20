@@ -30,4 +30,4 @@ jobs:
         run: |
           ansible-playbook aws-infra.yaml -e "ansible_python_interpreter=`which python3`" 
           ansible-playbook aws-infra.yaml -e "ansible_python_interpreter=`which python3`" --tags create_ec2
-          ansible-inventory -i aws-ec2.yml --list -e "ansible_python_interpreter=`which python3`"
+          ansible-inventory -i inventories/aws-ec2.yml --list -e "ansible_python_interpreter=`which python3`"
