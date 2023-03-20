@@ -1,4 +1,4 @@
-name: 'Ansible GitHub Actions'
+name: 'Ansible Quick Actions'
 on:
   workflow_dispatch:
 
