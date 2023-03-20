@@ -27,6 +27,6 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run ansible playbook
         run: |
-          ansible-inventory -i inventories/aws-ec2.yml --list -e "ansible_python_interpreter=`which python3`" 
+          ansible-inventory -i inventories/aws_ec2.yml --list -e "ansible_python_interpreter=`which python3`" 
         
         
