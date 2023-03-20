@@ -28,6 +28,6 @@ jobs:
           
       - name: Run ansible playbook
         run: |
-          ansible-inventory -i inventories/aws_ec2.yml --list 
+          ansible all -m ping -e "ansible_python_interpreter=`which python3`"
         
         
